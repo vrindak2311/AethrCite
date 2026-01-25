@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AethrCite | Smart Code Plagiarism Detection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo" onclick="app.navigate('home')">
+                <span class="logo-icon">A</span>
+                <span class="logo-text">AethrCite</span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <!-- Navigation links injected by JS -->
+            </ul>
+        </div>
+    </nav>
+
+    <main id="app-view">
+        <!-- Views will be injected here -->
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>AethrCite</h3>
+                    <p>Smart Code Plagiarism Detection</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 AethrCite. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- View Templates -->
+    <template id="tpl-login">
+        <section class="auth-page">
+            <div class="auth-card">
+                <h2>Welcome Back</h2>
+                <p>Login to your AethrCite account</p>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <p class="auth-footer">Don't have an account? <a href="#" onclick="app.navigate('signup')">Sign up</a></p>
+            </div>
+        </section>
+    </template>
+
+    <template id="tpl-signup">
+        <section class="auth-page">
+            <div class="auth-card">
+                <h2>Create Account</h2>
+                <p>Join AethrCite today</p>
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required placeholder="Enter password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+                <p class="auth-footer">Already have an account? <a href="#" onclick="app.navigate('login')">Login</a></p>
+            </div>
+        </section>
+    </template>
+
+    <template id="tpl-dashboard">
+        <section class="dashboard">
+            <div class="container">
+                <header class="dashboard-header">
+                    <h1>Dashboard</h1>
+                    <p>Analyze your code for plagiarism and get AI suggestions.</p>
+                </header>
+                
+                <div class="dashboard-grid">
+                    <!-- Input Section -->
+                    <div class="card code-input-card">
+                        <h3>Source Code</h3>
+                        <div class="input-actions">
+                            <label class="btn btn-outline" for="file-upload">
+                                <input type="file" id="file-upload" accept=".txt,.pdf,.jpg,.jpeg,.png" hidden>
+                                <span>Upload File (PDF/IMG/TXT)</span>
+                            </label>
+                        </div>
+                        <textarea id="code-textarea" placeholder="Paste your code here..."></textarea>
+                        <button id="check-btn" class="btn btn-accent">Check Plagiarism</button>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div class="card results-card hidden" id="results-section">
+                        <h3>Plagiarism Report</h3>
+                        <div class="plagiarism-score">
+                            <div class="circular-progress" id="score-circle">
+                                <span class="score-value" id="score-text">0%</span>
+                            </div>
+                            <p>Plagiarism Detected</p>
+                        </div>
+                        <div class="matched-sources" id="sources-list">
+                            <!-- Sources list -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Suggestion Section -->
+                <div class="card suggestion-card hidden" id="suggestion-section">
+                    <div class="card-header">
+                        <h3>AI Suggested Unique Code</h3>
+                        <button class="btn btn-small" id="copy-ai-btn">Copy Code</button>
+                    </div>
+                    <div class="code-preview" id="ai-code-output"></div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="tpl-history">
+        <section class="history-page">
+            <div class="container">
+                <header class="section-header">
+                    <h1>Your History</h1>
+                    <div class="header-actions">
+                        <button class="btn btn-outline btn-danger" onclick="app.clearHistory()">Clear All History</button>
+                    </div>
+                </header>
+                <div class="history-list" id="history-container">
+                    <!-- History items will be injected here -->
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>
