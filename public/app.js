@@ -13,6 +13,15 @@ const app = {
         this.loadHistory();
         this.renderNavbar();
         
+        // Hide loader after a short delay for smooth entry
+        setTimeout(() => {
+            const loader = document.getElementById('loader');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }
+        }, 800);
+
         // Initial route
         if (this.currentUser) {
             this.navigate('dashboard');
