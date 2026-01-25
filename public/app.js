@@ -183,7 +183,6 @@ const app = {
         const suggestionSection = document.getElementById('suggestion-section');
         const scoreText = document.getElementById('score-text');
         const scoreCircle = document.getElementById('score-circle');
-        const sourcesList = document.getElementById('sources-list');
         const aiCodeOutput = document.getElementById('ai-code-output');
 
         resultsSection.classList.remove('hidden');
@@ -192,19 +191,6 @@ const app = {
         // Update score UI
         scoreText.innerText = `${score}%`;
         scoreCircle.style.background = `conic-gradient(var(--primary) ${score}%, var(--bg-input) ${score}%)`;
-
-        // Mock sources
-        const sources = [
-            { name: 'github.com/react/core', match: Math.floor(score * 0.6) },
-            { name: 'stackoverflow.com/q/12345', match: Math.floor(score * 0.3) }
-        ];
-
-        sourcesList.innerHTML = '<h4>Matched Sources</h4>' + sources.map(s => `
-            <div class="source-item">
-                <span>${s.name}</span>
-                <span class="source-percentage">${s.match}% match</span>
-            </div>
-        `).join('');
 
         // Mock AI suggestion
         const aiCode = this.generateAISuggestion(code);
