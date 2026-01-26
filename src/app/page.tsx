@@ -16,10 +16,9 @@ export default function LandingPage() {
             <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">AethrCite</span>
           </div>
           <nav className="flex items-center gap-6">
-            <Link href="/login" className="text-sm text-zinc-400 hover:text-white transition-colors">SignIn</Link>
-            <Link href="/dashboard">
+            <Link href="/login">
               <Button size="sm" className="bg-white text-zinc-950 hover:bg-zinc-200 font-medium h-8 px-4">
-                Dashboard
+                SignIn
               </Button>
             </Link>
           </nav>
@@ -54,7 +53,7 @@ export default function LandingPage() {
                   </Button>
                 </Link>
                 <Link href="#features">
-                  <Button size="lg" variant="outline" className="h-12 border-zinc-800 text-zinc-400 hover:text-white hover:bg-white/5 px-8 text-base font-medium">
+                  <Button size="lg" className="h-12 bg-zinc-900 text-white border border-zinc-800 hover:bg-zinc-800 px-8 text-base font-medium shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                     How it Works
                   </Button>
                 </Link>

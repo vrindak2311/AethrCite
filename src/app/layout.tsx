@@ -4,6 +4,7 @@ import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
 import Script from "next/script";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -38,6 +39,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <VisualEditsMessenger />
+        <Toaster />
       </body>
     </html>
   );

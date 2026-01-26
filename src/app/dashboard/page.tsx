@@ -18,6 +18,17 @@ interface HistoryItem {
 
 export default function DashboardPage() {
     const router = useRouter();
+
+    // Check authentication
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            router.push("/login");
+        } else {
+            // Optional: Verify token with backend if needed, but user just asked for "before dashboard" check
+            // For now, client side check is sufficient as per request flow
+        }
+    }, [router]);
     const [loading, setLoading] = useState(false);
 
     // Plagiarism Logic State
