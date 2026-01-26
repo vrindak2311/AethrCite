@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
+import { promises as fs } from 'fs';
 import path from 'path';
 import jwt from 'jsonwebtoken';
 
@@ -11,35 +11,31 @@ interface User {
     password?: string;
 }
 
-function loadUsers(): User[] {
-    const dir = path.dirname(USERS_FILE);
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-    }
-
-    if (!fs.existsSync(USERS_FILE)) {
-        fs.writeFileSync(USERS_FILE, "[]");
-        return [];
-    }
-    const fileContent = fs.readFileSync(USERS_FILE, "utf8");
+async function loadUsers(): Promise<User[]> {
     try {
+        const dir = path.dirname(USERS_FILE);
+        // Check if directory exists, if not create it
+        await fs.mkdir(dir, { recursive: true });
+
+        // Check if file exists by trying to access it - or just try to read
+        // If readFile throws NOENT, we return []
+        const fileContent = await fs.readFile(USERS_FILE, "utf8");
         return JSON.parse(fileContent);
-    } catch {
+    } catch (error: any) {
+        // If file not found (ENOENT) or JSON parse error, return empty array
+        // We can log invalid JSON if needed, but for now robustly return []
         return [];
     }
 }
 
-function saveUsers(users: User[]) {
-    // Ensure data dir exists
+async function saveUsers(users: User[]) {
     const dir = path.dirname(USERS_FILE);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-
-    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+    await fs.mkdir(dir, { recursive: true });
+    await fs.writeFile(USERS_FILE, JSON.stringify(users, null, 2));
 }
 
 export async function POST(req: Request) {
     try {
-        console.log("Signup request received");
         const body = await req.json();
         const { email, password } = body;
 
@@ -47,8 +43,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ message: "Email and password required" }, { status: 400 });
         }
 
-        console.log("Loading users from:", USERS_FILE);
-        const users = loadUsers();
+        const users = await loadUsers();
         const userExists = users.find((u) => u.email === email);
 
         if (userExists) {
@@ -57,7 +52,7 @@ export async function POST(req: Request) {
 
         const newUser: User = { email, password };
         users.push(newUser);
-        saveUsers(users);
+        await saveUsers(users);
 
         const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: "1h" });
         return NextResponse.json({ message: "Signup successful", token });
@@ -65,8 +60,7 @@ export async function POST(req: Request) {
         console.error("Signup Error:", error);
         return NextResponse.json({
             message: "Internal Server Error",
-            error: error.message,
-            stack: error.stack
+            error: error.message
         }, { status: 500 });
     }
 }
