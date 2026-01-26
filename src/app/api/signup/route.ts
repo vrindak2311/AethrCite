@@ -12,6 +12,11 @@ interface User {
 }
 
 function loadUsers(): User[] {
+    const dir = path.dirname(USERS_FILE);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
+
     if (!fs.existsSync(USERS_FILE)) {
         fs.writeFileSync(USERS_FILE, "[]");
         return [];
@@ -34,6 +39,7 @@ function saveUsers(users: User[]) {
 
 export async function POST(req: Request) {
     try {
+        console.log("Signup request received");
         const body = await req.json();
         const { email, password } = body;
 
@@ -41,6 +47,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ message: "Email and password required" }, { status: 400 });
         }
 
+        console.log("Loading users from:", USERS_FILE);
         const users = loadUsers();
         const userExists = users.find((u) => u.email === email);
 
@@ -54,8 +61,12 @@ export async function POST(req: Request) {
 
         const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: "1h" });
         return NextResponse.json({ message: "Signup successful", token });
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+    } catch (error: any) {
+        console.error("Signup Error:", error);
+        return NextResponse.json({
+            message: "Internal Server Error",
+            error: error.message,
+            stack: error.stack
+        }, { status: 500 });
     }
 }
