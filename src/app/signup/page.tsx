@@ -9,14 +9,14 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import Link from "next/link";
 
-export default function LoginPage() {
+export default function SignupPage() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const handleLogin = async () => {
+    const handleSignup = async () => {
         if (!email || !password) {
             setError("Please fill in all fields");
             return;
@@ -26,7 +26,7 @@ export default function LoginPage() {
         setError("");
 
         try {
-            const res = await fetch(`/api/login`, {
+            const res = await fetch(`/api/signup`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
@@ -35,7 +35,7 @@ export default function LoginPage() {
 
             if (res.ok && data.token) {
                 localStorage.setItem("token", data.token);
-                toast.success("Login successful");
+                toast.success("Signup successful");
 
                 // Redirect to dashboard
                 setTimeout(() => {
@@ -43,7 +43,7 @@ export default function LoginPage() {
                 }, 500);
             } else {
                 setError(data.message || "Something went wrong");
-                toast.error(data.message || "Login failed");
+                toast.error(data.message || "Signup failed");
             }
         } catch (err) {
             setError("Network error");
@@ -65,9 +65,9 @@ export default function LoginPage() {
                             <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">AethrCite</span>
                         </div>
                     </div>
-                    <CardTitle className="text-2xl font-bold text-white">Welcome Back</CardTitle>
+                    <CardTitle className="text-2xl font-bold text-white">Create an Account</CardTitle>
                     <CardDescription className="text-zinc-400">
-                        Login to access your dashboard
+                        Enter your details to get started
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -97,15 +97,15 @@ export default function LoginPage() {
                 <CardFooter className="flex flex-col gap-4">
                     <Button
                         className="w-full bg-white text-zinc-950 hover:bg-zinc-200"
-                        onClick={handleLogin}
+                        onClick={handleSignup}
                         disabled={loading}
                     >
-                        {loading ? "..." : "Login"}
+                        {loading ? "Creating Account..." : "Sign Up"}
                     </Button>
                     <div className="text-center text-sm text-zinc-500">
-                        Don&apos;t have an account?{" "}
-                        <Link href="/signup" className="text-white hover:underline underline-offset-4">
-                            Sign up
+                        Already have an account?{" "}
+                        <Link href="/login" className="text-white hover:underline underline-offset-4">
+                            Login
                         </Link>
                     </div>
                 </CardFooter>
