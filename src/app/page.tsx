@@ -13,8 +13,7 @@ export default function LandingPage() {
       <header className="fixed top-0 z-50 w-full border-b border-white/5 bg-zinc-950/80 backdrop-blur-md supports-[backdrop-filter]:bg-zinc-950/50">
         <div className="container mx-auto flex h-14 items-center justify-between px-6">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold tracking-wide text-zinc-100">AethrCite</span>
-            <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] uppercase font-medium tracking-wider text-zinc-400">Beta</span>
+            <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">AethrCite</span>
           </div>
           <nav className="flex items-center gap-6">
             <Link href="/login" className="text-sm text-zinc-400 hover:text-white transition-colors">SignIn</Link>
@@ -30,7 +29,7 @@ export default function LandingPage() {
       <main className="flex-1">
 
         {/* Hero Section */}
-        <section className="relative pt-32 pb-24 md:pt-48 md:pb-32 overflow-hidden">
+        <section className="relative pt-24 pb-16 md:pt-36 md:pb-20 overflow-hidden">
           {/* Subtle Grid Background */}
           <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
@@ -66,20 +65,20 @@ export default function LandingPage() {
 
 
         {/* Bento Grid Features */}
-        <section id="features" className="py-24 md:py-32 mb-24">
+        <section id="features" className="py-16 md:py-24 mb-8">
           <div className="container mx-auto px-6">
             <div className="mb-16 md:text-center max-w-2xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4">Precision Engineered</h2>
               <p className="text-zinc-400">Deep analysis for text and code identifiers that simpler tools miss.</p>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3 md:grid-rows-2 h-auto md:h-[600px]">
+            <div className="grid gap-4 md:grid-cols-3 md:grid-rows-2 h-auto md:h-[480px]">
               {/* Large Feature */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="md:col-span-2 md:row-span-2 relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/50 p-8 md:p-12 flex flex-col justify-between group"
+                className="md:col-span-2 md:row-span-2 relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/50 p-6 md:p-10 flex flex-col justify-between group"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10">
@@ -114,7 +113,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="relative rounded-3xl border border-white/10 bg-zinc-900/50 p-8 group hover:border-white/20 transition-colors"
+                className="relative rounded-3xl border border-white/10 bg-zinc-900/50 p-6 group hover:border-white/20 transition-colors"
               >
                 <Lock className="h-8 w-8 text-zinc-400 mb-4 group-hover:text-white transition-colors" />
                 <h3 className="text-lg font-semibold text-white mb-2">Privacy First</h3>
@@ -126,7 +125,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="relative rounded-3xl border border-white/10 bg-zinc-900/50 p-8 group hover:border-white/20 transition-colors"
+                className="relative rounded-3xl border border-white/10 bg-zinc-900/50 p-6 group hover:border-white/20 transition-colors"
               >
                 <Zap className="h-8 w-8 text-zinc-400 mb-4 group-hover:text-white transition-colors" />
                 <h3 className="text-lg font-semibold text-white mb-2">Real-time Results</h3>
@@ -137,19 +136,6 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="border-t border-white/5 bg-zinc-950 py-12">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-center md:text-left">
-            <p className="text-sm font-semibold text-white">AethrCite</p>
-            <p className="text-xs text-zinc-600 mt-1">© 2024. All rights reserved.</p>
-          </div>
-          <div className="flex gap-6 text-sm text-zinc-500">
-            <a href="#" className="hover:text-zinc-300 transition-colors">Twitter</a>
-            <a href="#" className="hover:text-zinc-300 transition-colors">GitHub</a>
-            <a href="#" className="hover:text-zinc-300 transition-colors">Legal</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

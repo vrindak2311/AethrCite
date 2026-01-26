@@ -26,6 +26,17 @@ export default function DashboardPage() {
     const [result, setResult] = useState<{ score: number; aiCode: string } | null>(null);
     const [history, setHistory] = useState<HistoryItem[]>([]);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const resultsRef = useRef<HTMLDivElement>(null);
+
+    // Auto-scroll to results when they appear
+    useEffect(() => {
+        if (result && resultsRef.current) {
+            // Small delay to ensure DOM is fully rendered/animated
+            setTimeout(() => {
+                resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+    }, [result]);
 
     // Load history from localStorage on mount
     useEffect(() => {
@@ -131,10 +142,10 @@ export default function DashboardPage() {
                 <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-b border-zinc-800 pb-6">
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight text-white flex items-center gap-2">
-                            <span className="h-8 w-8 rounded-lg bg-white flex items-center justify-center text-sm text-black shadow-lg shadow-white/10">A</span>
-                            Dashboard
+                            <span className="h-8 w-8 rounded-lg bg-white flex items-center justify-center text-sm text-black shadow-lg shadow-white/10 font-bold">A</span>
+                            AethrCite Dashboard
                         </h1>
-                        <p className="text-zinc-400 mt-1">Smart Plagiarism Detection System</p>
+                        <p className="text-zinc-400 mt-1 pl-1">Write code own it.</p>
                     </div>
                     <div className="flex items-center gap-4">
                         <Button
@@ -218,7 +229,10 @@ export default function DashboardPage() {
 
                         {/* Results Section */}
                         {result && (
-                            <div className="grid gap-6 md:grid-cols-2 animate-in fade-in slide-in-from-bottom-6 duration-700">
+                            <div
+                                ref={resultsRef}
+                                className="grid gap-6 md:grid-cols-2 animate-in fade-in slide-in-from-bottom-6 duration-700"
+                            >
                                 {/* Score Card */}
                                 <Card className="border-zinc-800 bg-zinc-900/50 overflow-hidden relative group hover:border-zinc-700 transition-colors">
                                     <div className={`absolute top-0 left-0 w-full h-1 ${result.score > 50 ? 'bg-red-500' : 'bg-green-500'} shadow-[0_0_20px_rgba(0,0,0,0.5)]`} />
@@ -281,24 +295,6 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* Professional Footer */}
-                <footer className="border-t border-zinc-800 mt-12 pt-8 pb-4 text-center md:text-left">
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                        <div className="space-y-1">
-                            <p className="text-sm font-semibold text-zinc-300">AethrCite V2</p>
-                            <p className="text-xs text-zinc-500">
-                                Advanced Plagiarism Detection & Code Analysis System
-                            </p>
-                        </div>
-                        <div className="flex items-center gap-6 text-xs text-zinc-500">
-                            <a href="#" className="hover:text-zinc-300 transition-colors">Privacy Policy</a>
-                            <a href="#" className="hover:text-zinc-300 transition-colors">Terms of Service</a>
-                            <a href="#" className="hover:text-zinc-300 transition-colors">Support</a>
-                            <span className="text-zinc-700">|</span>
-                            <span>© 2024 AethrCite Inc.</span>
-                        </div>
-                    </div>
-                </footer>
             </div>
         </div>
     );
