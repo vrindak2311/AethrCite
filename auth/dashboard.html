@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AethrCite</title>
+    <link rel="stylesheet" href="auth.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <div class="card">
+            <header class="dashboard-header">
+                <div>
+                    <h1 class="card-title">Dashboard</h1>
+                    <p class="card-subtitle">Secure Area</p>
+                </div>
+                <button onclick="Auth.logout()" class="btn logout-btn">Sign Out</button>
+            </header>
+
+            <div id="welcomeMessage" class="form-group">
+                <!-- Content injected by JS -->
+            </div>
+
+            <div
+                style="padding: 2rem; background: #18181b; border-radius: 8px; border: 1px dashed #3f3f46; text-align: center; color: #71717a;">
+                <p>Welcome to your workspace.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.875rem;">Authentication was successful.</p>
+            </div>
+
+            <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                <div style="flex: 1; padding: 1rem; background: #27272a; border-radius: 8px;">
+                    <span style="color: #a1a1aa; font-size: 0.75rem;">STATUS</span>
+                    <div style="color: var(--success); font-weight: 600;">Active Session</div>
+                </div>
+                <div style="flex: 1; padding: 1rem; background: #27272a; border-radius: 8px;">
+                    <span style="color: #a1a1aa; font-size: 0.75rem;">ROLE</span>
+                    <div style="color: var(--text-primary); font-weight: 600;">User</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        // Check session and display user info
+        const user = Auth.getSession();
+
+        if (user) {
+            const welcomeDiv = document.getElementById('welcomeMessage');
+            welcomeDiv.innerHTML = `
+                <div style="font-size: 1.1rem;">
+                    Hello, <span class="user-badge">${user.username}</span>
+                </div>
+                <div style="margin-top: 5px; color: #71717a; font-size: 0.9rem;">
+                   ${user.email}
+                </div>
+            `;
+        }
+    </script>
+</body>
+
+</html>

@@ -15,10 +15,15 @@ export default function LandingPage() {
           <div className="flex items-center gap-2">
             <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">AethrCite</span>
           </div>
-          <nav className="flex items-center gap-6">
+          <nav className="flex items-center gap-4">
             <Link href="/login">
-              <Button size="sm" className="bg-white text-zinc-950 hover:bg-zinc-200 font-medium h-8 px-4">
-                SignIn
+              <Button size="sm" variant="ghost" className="text-zinc-400 hover:text-white">
+                Sign In
+              </Button>
+            </Link>
+            <Link href="/signup">
+              <Button size="sm" className="bg-white text-zinc-950 hover:bg-zinc-200">
+                Sign Up
               </Button>
             </Link>
           </nav>

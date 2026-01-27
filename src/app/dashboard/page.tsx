@@ -8,6 +8,7 @@ import { Loader2, LogOut, Upload, User, CheckCircle, Copy, Trash2, History as Hi
 import { toast } from "sonner";
 import { useState, useEffect, useRef } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { StaticAuth } from "@/lib/static-auth";
 
 interface HistoryItem {
     id: number;
@@ -21,15 +22,15 @@ export default function DashboardPage() {
 
     // Check authentication
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) {
+        const session = StaticAuth.getSession();
+        if (!session) {
             router.push("/login");
-        } else {
-            // Optional: Verify token with backend if needed, but user just asked for "before dashboard" check
-            // For now, client side check is sufficient as per request flow
         }
     }, [router]);
-    const [loading, setLoading] = useState(false);
+
+    const handleLogout = () => {
+        StaticAuth.logout();
+    };
 
     // Plagiarism Logic State
     const [code, setCode] = useState("");
@@ -169,11 +170,11 @@ export default function DashboardPage() {
                         </Button>
                         <Button
                             variant="secondary"
-                            className="bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white transition-colors"
-                            onClick={handleExit}
+                            className="bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white transition-colors border border-zinc-700"
+                            onClick={handleLogout}
                         >
                             <LogOut className="mr-2 h-4 w-4" />
-                            To Home
+                            Sign Out
                         </Button>
                     </div>
                 </header>
