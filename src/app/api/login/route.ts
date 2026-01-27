@@ -1,70 +1,44 @@
 import { NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import { z } from 'zod';
+import { loadUsers, comparePassword, authSchema } from '@/lib/simple-auth';
 
 const SECRET_KEY = "supersecretkey123";
-const USERS_FILE = path.join(process.cwd(), 'data', 'users.json');
-
-// Zod schema for login validation
-const loginSchema = z.object({
-    email: z.string().email("Invalid email address").toLowerCase().trim(),
-    password: z.string().min(1, "Password is required"),
-});
-
-interface User {
-    email: string;
-    password?: string;
-}
-
-async function loadUsers(): Promise<User[]> {
-    try {
-        const fileContent = await fs.readFile(USERS_FILE, "utf8");
-        return JSON.parse(fileContent);
-    } catch {
-        return [];
-    }
-}
 
 export async function POST(req: Request) {
     try {
         const body = await req.json();
 
-        // Validate input
-        const result = loginSchema.safeParse(body);
+        // 1. Validation (Reuse schema, though password min length is less strict for login technically, but fine to enforce)
+        // Relaxing password min length for login just in case legacy passwords were short (though we cleared data)
+        // using safeParse is fine.
+        const result = authSchema.safeParse(body);
         if (!result.success) {
-            const errorMsg = result.error.issues[0].message;
-            return NextResponse.json({ message: errorMsg }, { status: 400 });
+            // For login, maybe we don't return specific validation errors to avoid leaking info, but for simplicity let's stay consistent
+            return NextResponse.json({ message: result.error.issues[0].message }, { status: 400 });
         }
 
-        const { email: rawEmail, password } = result.data;
-        const email = rawEmail.toLowerCase();
+        const { email, password } = result.data;
 
-        console.log(`Login attempt for: ${email}`);
-
+        // 2. User Lookup
         const users = await loadUsers();
-        const user = users.find((u) => u.email === email);
+        const user = users.find(u => u.email === email);
 
         if (!user || !user.password) {
             return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
         }
 
-        // Compare hashed password
-        const passwordMatch = await bcrypt.compare(password, user.password);
-
-        if (!passwordMatch) {
+        // 3. Verify Password
+        const isValid = await comparePassword(password, user.password);
+        if (!isValid) {
             return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
         }
 
-        const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: "1h" });
+        // 4. Token
+        const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
+
         return NextResponse.json({ message: "Login successful", token });
     } catch (error: any) {
-        console.error("Login Error:", error);
-        return NextResponse.json({
-            message: "Internal Server Error",
-            error: error.message
-        }, { status: 500 });
+        console.error("Login API Error:", error);
+        return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
     }
 }

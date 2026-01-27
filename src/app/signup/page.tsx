@@ -2,12 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 
 export default function SignupPage() {
     const router = useRouter();
@@ -16,100 +13,103 @@ export default function SignupPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const handleSignup = async () => {
-        if (!email || !password) {
-            setError("Please fill in all fields");
-            return;
-        }
-
+    const handleSignup = async (e: React.FormEvent) => {
+        e.preventDefault();
         setLoading(true);
         setError("");
 
         try {
-            const res = await fetch(`/api/signup`, {
+            const res = await fetch("/api/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password }),
             });
             const data = await res.json();
 
-            if (res.ok && data.token) {
-                localStorage.setItem("token", data.token);
-                toast.success("Signup successful");
-
-                // Redirect to dashboard
-                setTimeout(() => {
-                    router.push("/dashboard");
-                }, 500);
+            if (res.ok) {
+                localStorage.setItem("token", data.token); // Store token (simple implementation)
+                router.push("/dashboard");
             } else {
-                setError(data.message || "Something went wrong");
-                toast.error(data.message || "Signup failed");
+                setError(data.message || "Signup failed");
             }
         } catch (err) {
-            setError("Network error");
-            toast.error("Network error");
+            setError("Something went wrong. Please try again.");
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-zinc-950 p-4 pt-20 pb-20">
-            {/* Background elements to match theme */}
-            <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+        <div className="flex min-h-screen items-center justify-center bg-zinc-950 p-6 selection:bg-white/20">
+            {/* Background Grid */}
+            <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
 
-            <Card className="z-10 w-full max-w-md border-zinc-800 bg-zinc-900/50 backdrop-blur-sm shadow-xl">
-                <CardHeader className="space-y-1 text-center">
-                    <div className="flex justify-center mb-2">
-                        <div className="flex items-center gap-2">
-                            <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">AethrCite</span>
-                        </div>
-                    </div>
-                    <CardTitle className="text-2xl font-bold text-white">Create an Account</CardTitle>
-                    <CardDescription className="text-zinc-400">
-                        Enter your details to get started
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="relative z-10 w-full max-w-md space-y-8 rounded-2xl border border-zinc-800 bg-zinc-900/50 p-10 backdrop-blur-xl"
+            >
+                <div className="text-center">
+                    <Link href="/" className="inline-block mb-6">
+                        <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">AethrCite</span>
+                    </Link>
+                    <h2 className="text-2xl font-semibold tracking-tight text-white">
+                        Create an account
+                    </h2>
+                    <p className="mt-2 text-sm text-zinc-400">
+                        Enter your email below to create your account
+                    </p>
+                </div>
+
+                <form onSubmit={handleSignup} className="space-y-6">
                     <div className="space-y-2">
-                        <Label htmlFor="email" className="text-zinc-200">Email</Label>
-                        <Input
+                        <label htmlFor="email" className="text-sm font-medium text-zinc-300">
+                            Email
+                        </label>
+                        <input
                             id="email"
                             type="email"
-                            placeholder="m@example.com"
+                            required
+                            className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder:text-zinc-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 sm:text-sm transition-colors"
+                            placeholder="name@example.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="border-zinc-700 bg-zinc-950/50 text-white placeholder:text-zinc-600 focus-visible:ring-zinc-600"
                         />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="password" className="text-zinc-200">Password</Label>
-                        <Input
+                        <label htmlFor="password" className="text-sm font-medium text-zinc-300">
+                            Password
+                        </label>
+                        <input
                             id="password"
                             type="password"
+                            required
+                            className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-white placeholder:text-zinc-600 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 sm:text-sm transition-colors"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="border-zinc-700 bg-zinc-950/50 text-white placeholder:text-zinc-600 focus-visible:ring-zinc-600"
                         />
                     </div>
-                    {error && <p className="text-sm text-red-500 font-medium text-center">{error}</p>}
-                </CardContent>
-                <CardFooter className="flex flex-col gap-4">
-                    <Button
-                        className="w-full bg-white text-zinc-950 hover:bg-zinc-200"
-                        onClick={handleSignup}
+
+                    {error && (
+                        <div className="text-sm text-red-400 text-center">{error}</div>
+                    )}
+
+                    <button
+                        type="submit"
                         disabled={loading}
+                        className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-zinc-950 bg-white hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                        {loading ? "Creating Account..." : "Sign Up"}
-                    </Button>
-                    <div className="text-center text-sm text-zinc-500">
-                        Already have an account?{" "}
-                        <Link href="/login" className="text-white hover:underline underline-offset-4">
-                            Login
-                        </Link>
-                    </div>
-                </CardFooter>
-            </Card>
+                        {loading ? <Loader2 className="animate-spin h-5 w-5" /> : "Sign Up"}
+                    </button>
+                </form>
+
+                <p className="text-center text-sm text-zinc-500">
+                    Already have an account?{" "}
+                    <Link href="/login" className="font-medium text-white hover:text-zinc-300 transition-colors">
+                        Login
+                    </Link>
+                </p>
+            </motion.div>
         </div>
     );
 }
