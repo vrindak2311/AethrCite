@@ -10,7 +10,7 @@ const USERS_FILE = path.join(process.cwd(), 'data', 'users.json');
 
 // Zod schema for input validation
 const signupSchema = z.object({
-    email: z.string().email("Invalid email address"),
+    email: z.string().email("Invalid email address").toLowerCase().trim(),
     password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -58,7 +58,10 @@ export async function POST(req: Request) {
             return NextResponse.json({ message: errorMsg }, { status: 400 });
         }
 
-        const { email, password } = result.data;
+        const { email: rawEmail, password } = result.data;
+        const email = rawEmail.toLowerCase();
+
+        console.log(`Signup attempt for: ${email}`);
 
         const users = await loadUsers();
         const userExists = users.find((u) => u.email === email);

@@ -10,5 +10,29 @@
   {
     "email": "fdgtdf@gmail.com",
     "password": "$2b$10$UPjPCgXe/dzy6WMrRbuMr.S3EXVqrCDUTBn9HeYQuuevulV.UcaD6"
+  },
+  {
+    "email": "anura317@gmail.com",
+    "password": "$2b$10$zSkkT26Eg1I/AOIUvrIG3eFEX/yLPrNcOCpI7MKVXkvSFE4bxkHjC"
+  },
+  {
+    "email": "test_1769500310388@gmail.com",
+    "password": "$2b$10$JVw2B6Opdzb..Nk6NqLS.OK7FVCnqcnK/RFC94mRchtW.zYS01Z7C"
+  },
+  {
+    "email": "test.foo+bar_1769500310389@gmail.com",
+    "password": "$2b$10$hbmLZxTBlNmgYsaMWOGhw.vhMUOGc7tKOVrlWTandX82/PALR6VeS"
+  },
+  {
+    "email": "casesensitive_1769500428832@gmail.com",
+    "password": "$2b$10$c7O.vdyB1HQ8pqMKVX7UzOVLpmdXEtHy344/HWhYn8qEN8gdlN0D."
+  },
+  {
+    "email": "laaklkak@gmail.com",
+    "password": "$2b$10$v7igJJUo0fV2/Q67uVJA4uhaXowMfz1OsXy6pmHWfaJyNyC5F/KK6"
+  },
+  {
+    "email": "pushkarchauhan0317@gmail.com",
+    "password": "$2b$10$7c7TsnggTY5ni7xrENBIhOPW9nL6XhLTkXBCDxCFA93/rYzls5uZe"
   }
 ]
