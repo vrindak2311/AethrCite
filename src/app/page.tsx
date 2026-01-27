@@ -46,18 +46,11 @@ export default function LandingPage() {
                 The standard for code integrity. Detect plagiarism, AI generation, and ensure academic honesty with a single click.
               </p>
 
-              <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Link href="/dashboard">
-                  <Button size="lg" className="h-12 bg-white text-black px-8 text-base font-medium hover:bg-zinc-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                    Start Checking Now
-                  </Button>
-                </Link>
-                <Link href="#features">
-                  <Button size="lg" className="h-12 bg-zinc-900 text-white border border-zinc-800 hover:bg-zinc-800 px-8 text-base font-medium shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                    How it Works
-                  </Button>
-                </Link>
-              </div>
+              <Link href="#features">
+                <Button size="lg" className="h-12 bg-white text-black px-8 text-base font-medium hover:bg-zinc-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                  How it Works
+                </Button>
+              </Link>
             </motion.div>
           </div>
         </section>
