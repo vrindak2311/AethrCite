@@ -7,16 +7,19 @@
     --bg-dark: #121212;
     --bg-card: #1E1E1E;
     --bg-input: #2A2A2A;
-    
+
     --text-primary: #FFFFFF;
     --text-secondary: #A1A1AA;
-    
-    --accent-primary: #8B5CF6; /* Purple */
+
+    --accent-primary: #8B5CF6;
+    /* Purple */
     --accent-hover: #7C3AED;
-    
-    --success: #10B981; /* Green */
-    --error: #F97316; /* Orange/Red-ish */
-    
+
+    --success: #10B981;
+    /* Green */
+    --error: #F97316;
+    /* Orange/Red-ish */
+
     --border-color: #3F3F46;
     --radius: 8px;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
@@ -36,8 +39,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: 
-        radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 25%), 
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 25%),
         radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.05) 0%, transparent 25%);
 }
 
@@ -119,7 +122,8 @@ input:focus {
     color: var(--error);
     font-size: 0.75rem;
     margin-top: 0.25rem;
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     font-weight: 500;
 }
 
@@ -224,8 +228,15 @@ input:focus {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Toast Notification */
@@ -243,7 +254,7 @@ input:focus {
     padding: 1rem 1.5rem;
     margin-bottom: 0.5rem;
     border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     min-width: 300px;
     animation: slideIn 0.3s ease-out;
     display: flex;
@@ -251,15 +262,32 @@ input:focus {
     justify-content: space-between;
 }
 
-.toast.success { border-left-color: var(--success); }
-.toast.error { border-left-color: var(--error); }
+.toast.success {
+    border-left-color: var(--success);
+}
+
+.toast.error {
+    border-left-color: var(--error);
+}
 
 @keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 @media (max-width: 480px) {
-    .card { padding: 1.5rem; }
-    .auth-container { padding: 10px; }
+    .card {
+        padding: 1.5rem;
+    }
+
+    .auth-container {
+        padding: 10px;
+    }
 }

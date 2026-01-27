@@ -48,13 +48,15 @@ export default function SignupPage() {
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-zinc-950 p-4 relative overflow-hidden">
-            {/* Background elements */}
-            <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_15%_50%,rgba(139,92,246,0.08)_0%,transparent_25%),radial-gradient(circle_at_85%_30%,rgba(16,185,129,0.05)_0%,transparent_25%)]" />
+            {/* Subtle Grid Background from Welcome Page */}
+            <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
-            <Card className="z-10 w-full max-w-md border-zinc-800 bg-zinc-900/80 backdrop-blur-md shadow-2xl">
+            <Card className="z-10 w-full max-w-md border-zinc-800 bg-zinc-900/50 backdrop-blur-md shadow-2xl">
                 <CardHeader className="space-y-1 text-center pb-8">
                     <div className="flex justify-center mb-6">
-                        <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-700 shadow-[0_0_15px_rgba(139,92,246,0.3)]" />
+                        <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center text-xl font-bold text-black shadow-lg shadow-white/10">
+                            A
+                        </div>
                     </div>
                     <CardTitle className="text-2xl font-bold text-white">Join AethrCite</CardTitle>
                     <CardDescription className="text-zinc-400">
@@ -71,7 +73,7 @@ export default function SignupPage() {
                                 placeholder="johndoe"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                className="border-zinc-700 bg-zinc-800/50 text-white placeholder:text-zinc-600 focus-visible:ring-purple-500 transition-all"
+                                className="border-zinc-800 bg-black/50 text-white placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-white/20 transition-all"
                                 required
                             />
                         </div>
@@ -83,7 +85,7 @@ export default function SignupPage() {
                                 placeholder="name@company.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="border-zinc-700 bg-zinc-800/50 text-white placeholder:text-zinc-600 focus-visible:ring-purple-500 transition-all"
+                                className="border-zinc-800 bg-black/50 text-white placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-white/20 transition-all"
                                 required
                             />
                         </div>
@@ -95,7 +97,7 @@ export default function SignupPage() {
                                 placeholder="••••••••"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="border-zinc-700 bg-zinc-800/50 text-white placeholder:text-zinc-600 focus-visible:ring-purple-500 transition-all"
+                                className="border-zinc-800 bg-black/50 text-white placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-white/20 transition-all"
                                 required
                             />
                         </div>
@@ -107,13 +109,13 @@ export default function SignupPage() {
                                 placeholder="••••••••"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                className="border-zinc-700 bg-zinc-800/50 text-white placeholder:text-zinc-600 focus-visible:ring-purple-500 transition-all"
+                                className="border-zinc-800 bg-black/50 text-white placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-white/20 transition-all"
                                 required
                             />
                         </div>
                         <Button
                             type="submit"
-                            className="w-full bg-purple-600 text-white hover:bg-purple-700 font-semibold shadow-lg shadow-purple-500/20 mt-2"
+                            className="w-full bg-white text-black hover:bg-zinc-200 font-medium shadow-lg shadow-white/5 mt-2 transition-all"
                             disabled={loading}
                         >
                             {loading ? "Creating Account..." : "Create Account"}
@@ -123,7 +125,7 @@ export default function SignupPage() {
                 <CardFooter className="flex flex-col gap-4 text-center mt-2">
                     <div className="text-sm text-zinc-500">
                         Already have an account?{" "}
-                        <Link href="/login" className="text-purple-400 hover:text-purple-300 hover:underline">
+                        <Link href="/login" className="text-white hover:text-zinc-300 hover:underline transition-colors">
                             Log In
                         </Link>
                     </div>
