@@ -1,0 +1,35 @@
+Our platform allows users to upload documents or paste code directly to check for
+plagiarism. After analysis, the system provides a plagiarism score and simultaneously generates an
+AI-rewritten version of the same content to help improve originality. The goal is to ensure academic
+integrity, originality, and legal safety for users across different fields.
+
+How the System Works?
+1. User logs in to the website 
+2. An input box is provided where the user
+can upload a PDF file, Word/text file, or paste code directly 
+3. After submission, the system
+analyzes the content and displays the plagiarism percentage 
+4. An AI-rewritten version of the same code/text is generated side-by-side 
+5. All checked content is saved in the History section
+6. Users can delete saved content for privacy
+
+
+Key Features=>
+-Multi-language plagiarism detection 
+- Source highlighting 
+- Detection of missing or incorrect citations 
+- Role-based login 
+- Detection of ChatGPT and AI-generated text 
+- Secure history storage with delete option
+
+
+Frontend Technologies:HTML, CSS, JavaScript, React / Next.js, Tailwind CSS / Bootstrap
+Backend Technologies: Node.js, Python
+
+Who Can Use This Platform?
+Students, Teachers/Professors, Developers, Writers, Researchers, Content Creators, Companies
+
+Why This Platform Is Useful Students? 
+->avoid penalties, educators maintain integrity, researchers
+ensure originality, developers avoid legal issues, writers protect reputation, hiring teams verify
+originality.
